@@ -11,7 +11,10 @@ import com.eduardo.spring_api.model.Aluno;
 import com.eduardo.spring_api.service.AlunoService;
 
 import lombok.AllArgsConstructor;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -34,6 +37,12 @@ public class AlunoController {
     @GetMapping
     public ResponseEntity<?> listar() {
         return ResponseEntity.ok(alunoService.listar());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        alunoService.delete(id);
+        return ResponseEntity.ok().body("Aluno deletado com sucesso");
     }
 
 }
