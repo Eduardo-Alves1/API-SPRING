@@ -29,4 +29,12 @@ public class AlunoService {
         alunoRepository.deleteById(id);
     }
 
+    public Aluno update(Long id, Aluno aluno) {
+        if (!alunoRepository.existsById(id)) {
+            throw new RuntimeException("Aluno não encontrado com o ID: " + id);
+        }
+        aluno.setId(id);
+        return alunoRepository.save(aluno);
+    }
+
 }
