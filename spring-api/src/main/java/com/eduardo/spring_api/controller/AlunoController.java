@@ -1,6 +1,7 @@
 package com.eduardo.spring_api.controller;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eduardo.spring_api.model.Aluno;
 import com.eduardo.spring_api.service.AlunoService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,11 +29,11 @@ public class AlunoController {
     private final AlunoService alunoService;
 
     @PostMapping
-    public ResponseEntity<?> criar(@RequestBody Aluno aluno) {
+    public ResponseEntity<?> criar(@RequestBody @Valid Aluno aluno) {
 
         Aluno novoAluno = alunoService.criar(aluno);
-        
-        return ResponseEntity.ok().body("Novo aluno criado com sucesso: " + novoAluno.getNome());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Novo aluno criado com sucesso: " + novoAluno.getNome());
     }
 
   
@@ -43,7 +45,7 @@ public class AlunoController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         alunoService.delete(id);
-        return ResponseEntity.ok().body("Aluno deletado com sucesso");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/update/{id}")

@@ -2,6 +2,7 @@ package com.eduardo.spring_api.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import lombok.NonNull;
 public class Aluno {
 
     @Id
+    @Schema(hidden = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
